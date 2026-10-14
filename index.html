@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>𓆝 𓆟 𓆞 an inkling𓆝 𓆟 𓆞</title>
+    <link rel="stylesheet" href="style.css?v=readable" />
+  </head>
+  <body>
+    <main>
+      <canvas
+        id="score"
+        aria-label="draw on the score; stretch to pull the paper"
+      ></canvas>
+      <!-- Artwork name and audio initialization. -->
+      <header>
+        <div class="title-row">
+          <h1>
+            <span class="fish">𓆝 𓆟 𓆞 </span
+            ><span class="hand-title" aria-label="an inkling"
+              ><span aria-hidden="true" style="--tilt: -3deg; --lift: 1px"
+                >a</span
+              ><span aria-hidden="true" style="--tilt: 2deg; --lift: -1px"
+                >n</span
+              ><span aria-hidden="true" style="--tilt: 0deg; --lift: 0px"
+                >&nbsp;</span
+              ><span aria-hidden="true" style="--tilt: -2deg; --lift: 1px"
+                >i</span
+              ><span aria-hidden="true" style="--tilt: 3deg; --lift: -1px"
+                >n</span
+              ><span aria-hidden="true" style="--tilt: -1deg; --lift: 1px"
+                >k</span
+              ><span aria-hidden="true" style="--tilt: 2deg; --lift: 0px"
+                >l</span
+              ><span aria-hidden="true" style="--tilt: -3deg; --lift: 2px"
+                >i</span
+              ><span aria-hidden="true" style="--tilt: 1deg; --lift: -1px"
+                >n</span
+              ><span aria-hidden="true" style="--tilt: 3deg; --lift: 1px"
+                >g</span
+              ></span
+            ><span class="fish">𓆝 𓆟 𓆞 </span>
+          </h1>
+          <button id="begin">begin</button>
+        </div>
+      </header>
+
+      <div id="empty">
+        <span class="hairline"></span>
+        <p>begin, then draw</p>
+      </div>
+      <!-- Expression choices and optional visual sound tools. -->
+      <aside id="instrument" aria-label="Expression tools">
+        <div class="expression">
+          <label
+            >ink
+            <select id="ink">
+              <option value="0.25">fine</option>
+              <option value="0.5" selected>medium</option>
+              <option value="1">bold</option>
+            </select></label
+          ><label
+            >articulation
+            <select id="articulation">
+              <option value="legato">legato</option>
+              <option value="detached">detached</option>
+            </select></label
+          ><label
+            ><input id="preserve" type="checkbox" checked /> preserve
+            pitch</label
+          >
+        </div>
+        <details id="soundtools">
+          <summary>shape the sound</summary>
+          <div class="tool-tabs" aria-label="Sound shapes">
+            <button data-tool="pan" aria-pressed="true">source</button
+            ><button data-tool="space">space</button
+            ><button data-tool="edge">edge</button
+            ><button data-tool="boundary">boundary</button
+            ><button data-tool="eq">tone</button>
+          </div>
+          <canvas
+            id="shaper"
+            tabindex="0"
+            aria-label="Sound source: drag left or right to place the sound. Arrow keys also adjust the shape."
+          ></canvas>
+          <div class="tool-caption">
+            <span id="shape-hint">move the sound left or right.</span
+            ><button id="bypass" aria-pressed="false">bypass</button>
+          </div>
+        </details>
+        <details id="behind">
+          <summary>behind the sound</summary>
+          <div id="technical"></div>
+        </details>
+        <div class="learn">
+          <button id="learn">explore with a guide</button>
+        </div>
+      </aside>
+      <!-- Optional walkthrough; hidden until the guide is opened. -->
+      <section id="walkthrough" hidden aria-label="Guided exploration">
+        <div id="step-count"></div>
+        <h2 id="step-title"></h2>
+        <p id="step-text"></p>
+        <div>
+          <button id="demo">hear / see an example</button
+          ><button id="next">next →</button><button id="skip">skip</button>
+        </div>
+      </section>
+      <!-- Main modes, playback, recovery, and master volume. -->
+      <footer>
+        <nav aria-label="Score controls">
+          <div class="modes">
+            <button id="draw" aria-pressed="true">draw</button
+            ><button id="stretch" aria-pressed="false">stretch</button
+            ><button id="dynamics" aria-pressed="false">dynamics</button>
+          </div>
+          <button id="play" disabled>play</button><span class="divider"></span
+          ><button id="reset">reset paper</button
+          ><button id="clear">erase drawing</button
+          ><button id="undo" disabled>undo</button
+          ><label
+            >volume
+            <input
+              id="volume"
+              type="range"
+              min="0"
+              max="1"
+              step=".01"
+              value=".35"
+          /></label>
+        </nav>
+        <div class="footnote">
+          <span id="hint" role="status"></span><span id="duration"></span>
+        </div>
+      </footer>
+    </main>
+    <script src="script.js?v=readable"></script>
+  </body>
+</html>

@@ -1,0 +1,632 @@
+/* an inkling — layout and appearance.
+ * Base layout comes first, compact-screen rules follow their sections,
+ * and the final typography/title rules override earlier defaults.
+ * For font, ink weight, title spacing, and letter irregularity, edit the
+ * clearly labeled appearance blocks near the bottom. See EDITING.md.
+ */
+/* Base paper palette and full-window canvas. */
+:root {
+  color-scheme: light;
+  --ink: #39352c;
+  --faint: #817763;
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  background: #e9dfc9;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+}
+main {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 440px;
+  isolation: isolate;
+}
+canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: crosshair;
+}
+/* Header, first-use prompt, and main controls. */
+header {
+  position: absolute;
+  top: 34px;
+  left: 5.2%;
+  right: 5.2%;
+  pointer-events: none;
+}
+.edition {
+  font:
+    10px/1.4 "Courier New",
+    monospace;
+  letter-spacing: 2px;
+  display: flex;
+  justify-content: space-between;
+  color: #6c6251;
+}
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-top: 16px;
+}
+h1 {
+  font-size: clamp(34px, 4.1vw, 58px);
+  font-weight: 400;
+  letter-spacing: -2px;
+  margin: 0;
+}
+header p {
+  font-size: 14px;
+  font-style: italic;
+  color: #716653;
+  margin: 12px 0;
+}
+button {
+  font:
+    14px Georgia,
+    serif;
+  color: inherit;
+  border: 0;
+  background: none;
+  padding: 9px 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+button:hover {
+  background: #53482d12;
+}
+button:focus-visible,
+input:focus-visible {
+  outline: 1px solid #5a4d34;
+  outline-offset: 4px;
+}
+button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+#begin {
+  pointer-events: auto;
+  border: 1px solid #64583c66;
+  border-radius: 50%;
+  padding: 18px 22px;
+  margin-left: auto;
+  font-style: italic;
+}
+#begin span {
+  margin-left: 10px;
+}
+#begin.ready {
+  border-color: transparent;
+  font-size: 12px;
+  color: #776c58;
+}
+.margin-label {
+  position: absolute;
+  top: 49%;
+  left: 20px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font: 9px monospace;
+  letter-spacing: 2px;
+  color: #887b65;
+  pointer-events: none;
+}
+#empty {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+  color: #746853;
+  transition: opacity 0.5s;
+  width: 80%;
+}
+#empty p {
+  font-size: 22px;
+  font-style: italic;
+  margin: 18px 0 10px;
+}
+#empty small {
+  font: 10px monospace;
+  letter-spacing: 1px;
+}
+.hairline {
+  display: block;
+  margin: auto;
+  width: 1px;
+  height: 42px;
+  background: #9c8a6666;
+}
+footer {
+  position: absolute;
+  bottom: 25px;
+  left: 5.2%;
+  right: 5.2%;
+  background: #ede4d0d9;
+  box-shadow: 0 -10px 25px #ede4d077;
+}
+nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid #796b4f55;
+  padding-top: 12px;
+}
+.modes {
+  display: flex;
+  border: 1px solid #796b4f55;
+  padding: 3px;
+}
+.modes button[aria-pressed="true"] {
+  background: #3e392e;
+  color: #f1e7d1;
+}
+.divider {
+  height: 20px;
+  border-left: 1px solid #796b4f55;
+  margin: 0 8px;
+}
+label {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  color: #736650;
+}
+input {
+  width: 85px;
+  height: 2px;
+  accent-color: #534a38;
+}
+.footnote {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  font: 9px/1.5 monospace;
+  letter-spacing: 1px;
+  color: #7c705a;
+}
+#duration {
+  font-variant-numeric: tabular-nums;
+}
+body.stretch canvas {
+  cursor: ew-resize;
+}
+@media (max-width: 650px) {
+  header {
+    top: 23px;
+  }
+  .edition {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+  .edition span {
+    display: none;
+  }
+  header p {
+    max-width: 240px;
+    line-height: 1.5;
+    font-size: 12px;
+  }
+  nav {
+    flex-wrap: wrap;
+    gap: 3px;
+  }
+  button {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+  label {
+    margin-left: auto;
+  }
+  footer {
+    bottom: 18px;
+  }
+  .footnote {
+    font-size: 8px;
+    letter-spacing: 0;
+  }
+  .divider {
+    margin: 0 4px;
+  }
+  #empty p {
+    font-size: 19px;
+  }
+}
+h1 {
+  font-family: "Baskerville", "Palatino Linotype", "Book Antiqua", serif;
+}
+h1 em {
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -3px;
+}
+/* Compact expression tools and expandable sound explanations. */
+#instrument {
+  position: absolute;
+  right: 5.2%;
+  top: 120px;
+  width: 310px;
+  background: #eee4cfea;
+  padding: 9px 12px;
+  border-top: 1px solid #796b4f44;
+  box-shadow: 0 5px 18px #78654408;
+  font-size: 12px;
+}
+.expression {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+.expression label {
+  margin: 0;
+  font-size: 11px;
+  gap: 5px;
+}
+.expression input {
+  width: auto;
+  height: auto;
+}
+.expression select {
+  font: 12px Georgia;
+  background: transparent;
+  color: var(--ink);
+  border: 0;
+  border-bottom: 1px solid #796b4f66;
+  padding: 3px;
+}
+details {
+  margin-top: 10px;
+}
+summary {
+  cursor: pointer;
+  color: #645a48;
+  font-size: 12px;
+  padding: 5px 0;
+}
+summary span {
+  float: right;
+}
+#shaper {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 120px;
+  cursor: ew-resize;
+  touch-action: none;
+  border-top: 1px solid #796b4f33;
+  border-bottom: 1px solid #796b4f33;
+}
+.tool-tabs {
+  display: flex;
+  justify-content: space-between;
+}
+.tool-tabs button {
+  font-size: 11px;
+  padding: 8px 5px;
+}
+.tool-tabs button[aria-pressed="true"] {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.tool-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  font-size: 11px;
+  font-style: italic;
+}
+.tool-caption button {
+  font-size: 11px;
+  padding: 7px;
+}
+#bypass[aria-pressed="true"] {
+  text-decoration: line-through;
+}
+#technical {
+  font:
+    10px/1.7 "Courier New",
+    monospace;
+  max-height: 230px;
+  overflow: auto;
+  padding: 8px 0;
+}
+.learn {
+  text-align: right;
+}
+.learn button {
+  font-size: 11px;
+  padding: 4px 0;
+  color: #736650;
+  font-style: italic;
+}
+#walkthrough {
+  position: absolute;
+  left: 5.2%;
+  top: 165px;
+  max-width: 330px;
+  padding: 18px;
+  background: #f0e7d5f5;
+  border: 1px solid #796b4f55;
+  box-shadow: 6px 8px 0 #7063440a;
+}
+#walkthrough[hidden] {
+  display: none;
+}
+#step-count {
+  font: 9px monospace;
+  letter-spacing: 2px;
+  color: #81735b;
+}
+#walkthrough h2 {
+  font: italic 22px Georgia;
+  margin: 12px 0;
+}
+#walkthrough p {
+  font-size: 13px;
+  line-height: 1.6;
+}
+#walkthrough button {
+  font-size: 11px;
+  padding: 6px 8px;
+}
+body.dynamics #score {
+  cursor: ns-resize;
+}
+nav {
+  gap: 5px;
+}
+#empty {
+  top: 52%;
+}
+@media (max-width: 800px) {
+  #instrument {
+    top: 155px;
+    width: 270px;
+    right: 4%;
+    padding: 5px 10px;
+  }
+  .expression {
+    gap: 8px;
+  }
+  #walkthrough {
+    top: 250px;
+    left: 4%;
+    max-width: 260px;
+  }
+  footer {
+    left: 4%;
+    right: 4%;
+  }
+  nav {
+    flex-wrap: wrap;
+  }
+  header p {
+    max-width: 270px;
+  }
+  #empty {
+    top: 60%;
+  }
+}
+@media (max-width: 450px) {
+  #instrument {
+    top: 142px;
+    width: 248px;
+  }
+  #behind[open] #technical {
+    max-height: 150px;
+  }
+  #shaper {
+    height: 100px;
+  }
+  #duration {
+    max-width: 120px;
+    text-align: right;
+  }
+  .margin-label {
+    left: 5px;
+  }
+}
+#instrument {
+  max-height: calc(100dvh - 285px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #938267 transparent;
+}
+/* quill-like lettering throughout; system faces keep the prototype offline */
+:root {
+  --hand:
+    "Apple Chancery", "URW Chancery L", "Segoe Script", "Lucida Handwriting",
+    cursive;
+  --script: "Snell Roundhand", "Brush Script MT", "Apple Chancery", cursive;
+}
+body,
+button,
+select,
+input,
+label,
+summary,
+#technical,
+#step-count,
+.footnote,
+#empty small,
+#walkthrough h2 {
+  font-family: var(--hand) !important;
+  text-transform: lowercase;
+  letter-spacing: 0;
+}
+h1,
+h1 em {
+  font-family: var(--script) !important;
+  font-size: clamp(48px, 6vw, 78px);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: -1px;
+  text-transform: lowercase;
+}
+.title-row {
+  margin-top: 0;
+}
+button {
+  font-size: 16px;
+}
+.expression label,
+summary,
+.expression select {
+  font-size: 14px;
+}
+.tool-tabs button,
+.tool-caption,
+.tool-caption button,
+.learn button {
+  font-size: 13px;
+}
+#technical {
+  font-size: 12px;
+}
+.footnote {
+  font-size: 12px;
+}
+#empty p {
+  font-family: var(--hand);
+  font-size: 24px;
+  font-style: normal;
+}
+.hairline {
+  display: none;
+}
+#step-count {
+  font-size: 12px;
+}
+#walkthrough p {
+  font-size: 15px;
+}
+#walkthrough button {
+  font-size: 13px;
+}
+#instrument {
+  top: 132px;
+}
+#begin.ready {
+  font-size: 14px;
+}
+.expression {
+  gap: 10px;
+}
+.expression label {
+  font-size: 13px;
+}
+@media (max-width: 650px) {
+  button {
+    font-size: 14px;
+  }
+  .footnote {
+    font-size: 11px;
+  }
+  #instrument {
+    top: 128px;
+  }
+  .title-row {
+    gap: 12px;
+  }
+  h1 {
+    font-size: 48px;
+  }
+  #begin {
+    padding: 12px 15px;
+  }
+  #duration {
+    max-width: 140px;
+  }
+}
+h1 {
+  font-size: clamp(30px, 5vw, 64px);
+  white-space: nowrap;
+}
+h1 .fish {
+  font-size: 0.42em;
+  vertical-align: middle;
+  letter-spacing: 1px;
+}
+h1 .hand-title {
+  display: inline-block;
+  letter-spacing: -0.025em;
+}
+.hand-title > span {
+  display: inline-block;
+  transform: translateY(var(--lift)) rotate(var(--tilt));
+  transform-origin: 50% 75%;
+  opacity: 0.91;
+}
+.hand-title > span:nth-child(3n) {
+  opacity: 0.79;
+}
+.hand-title > span:nth-child(4n) {
+  transform: translateY(var(--lift)) rotate(var(--tilt)) scaleX(0.96);
+}
+/* Leave room for script swashes and fit the title beside the audio control. */
+.title-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(8px, 2vw, 24px);
+}
+h1 {
+  min-width: 0;
+  width: 100%;
+  padding: 0.2em 0.4em 0.3em 0.25em;
+  line-height: 1.45;
+  overflow: visible;
+}
+#begin {
+  flex-shrink: 0;
+  margin-left: 0;
+}
+@media (max-width: 380px) {
+  header {
+    left: 4%;
+    right: 4%;
+  }
+  .title-row {
+    gap: 6px;
+  }
+  #begin {
+    padding: 10px 11px;
+  }
+}
+/* Current title font (this overrides the earlier fallback stack). */
+:root {
+  --script: "Brush Script MT", "Brush Script", "Apple Chancery", cursive;
+}
+/* Brush Script has one weight; soften its ink without changing the letterforms. */
+h1 .hand-title {
+  color: #716958;
+}
+.hand-title > span {
+  opacity: 0.82;
+}
+.hand-title > span:nth-child(3n) {
+  opacity: 0.72;
+}
+/* A fine paper-colored edge pares back the fixed-weight script strokes. */
+h1 .hand-title > span {
+  -webkit-text-stroke: 0.55px #eee4cf;
+}
